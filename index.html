@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajat's Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Dark Theme CSS -->
+    <link rel="stylesheet" href="css/dark-theme.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS library for scroll animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Additional contrast styles */
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            cursor: none; /* Hide default cursor */
+        }
+        
+        /* Simplified cursor style */
+        .cursor-follower {
+            opacity: 0.6 !important;
+            z-index: 9999 !important;
+            pointer-events: none !important;
+            mix-blend-mode: exclusion !important;
+            border-color: #ffffff !important;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        p {
+            color: #cccccc;
+        }
+        
+        .about-text p, .project-description {
+            color: #cccccc;
+        }
+        
+        .info-title {
+            color: #ffffff;
+        }
+        
+        .info-value {
+            color: #cccccc;
+        }
+        
+        .section-header h2 span {
+            text-shadow: 0 0 10px rgba(227, 27, 35, 0.3);
+        }
+        
+        .skill-item, .project-card, .contact-form {
+            background-color: #1e1e1e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-link {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-group input, .form-group textarea {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid #333333;
+            color: #f0f0f0;
+        }
+        
+        .form-group label {
+            color: #aaaaaa;
+        }
+        
+        /* Fix for hero section layout */
+        .hero {
+            display: flex;
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            overflow: hidden;
+            padding: 0;
+        }
+        
+        .hero-content {
+            position: absolute;
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            max-width: 600px;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 40%;
+            max-width: 450px;
+            height: auto;
+            border-radius: 15px;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 6s ease-in-out infinite;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .hero-img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 15px;
+            filter: contrast(1.2) brightness(1.1);
+            z-index: 2;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .hero-image:hover {
+            transform: translateY(-50%) scale(1.05) rotateY(5deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-image:hover .hero-img {
+            transform: scale(1.05) rotateY(5deg);
+            filter: contrast(1.3) brightness(1.2);
+        }
+        
+        .hero-image:hover .glow-1 {
+            opacity: 0.8;
+            transform: scale(1.2);
+        }
+        
+        .hero-image:hover .glow-2 {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(-50%) rotateY(0deg);
+            }
+            25% {
+                transform: translateY(-55%) rotateY(5deg);
+            }
+            50% {
+                transform: translateY(-50%) rotateY(0deg);
+            }
+            75% {
+                transform: translateY(-45%) rotateY(-5deg);
+            }
+        }
+        
+        /* Text appearance improvements */
+        .greeting {
+            font-size: 2.4rem;
+            color: #cccccc;
+            margin-bottom: 0.5rem;
+        }
+        
+        .name {
+            color: #e31b23;
+            text-shadow: 0 0 10px rgba(227, 27, 35, 0.3);
+        }
+        
+        .typewriter {
+            font-size: 2.4rem;
+            margin-bottom: 2rem;
+            min-height: 3.6rem;
+            color: #ffffff;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #ffffff;
+            margin-left: 0.2rem;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .hero p {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            max-width: 500px;
+            color: #cccccc;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .btn {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .primary-btn {
+            background-color: #e31b23;
+            color: #ffffff;
+            border: none;
+        }
+        
+        .secondary-btn {
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .mouse {
+            width: 30px;
+            height: 50px;
+            border: 2px solid #ffffff;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .wheel {
+            width: 4px;
+            height: 8px;
+            background-color: #ffffff;
+            border-radius: 2px;
+            animation: scroll 2s infinite;
+        }
+        
+        @keyframes scroll {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+        }
+        
+        .arrow {
+            margin-top: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .arrow span {
+            display: block;
+            width: 15px;
+            height: 15px;
+            border-bottom: 2px solid #ffffff;
+            border-right: 2px solid #ffffff;
+            transform: rotate(45deg);
+            margin: -5px;
+            animation: arrow 2s infinite;
+        }
+        
+        .arrow span:nth-child(2) {
+            animation-delay: -0.2s;
+        }
+        
+        .arrow span:nth-child(3) {
+            animation-delay: -0.4s;
+        }
+        
+        @keyframes arrow {
+            0% {
+                opacity: 0;
+                transform: rotate(45deg) translate(-10px, -10px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(10px, 10px);
+            }
+        }
+        
+        /* Glow effects for the hero image */
+        .glow-effect {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0.5;
+            transition: all 0.5s ease;
+            z-index: 0;
+        }
+        
+        .glow-1 {
+            top: -20%;
+            left: -20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(227, 27, 35, 0.6) 0%, transparent 70%);
+            animation: float-glow 8s infinite alternate;
+        }
+        
+        .glow-2 {
+            bottom: -20%;
+            right: -20%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, transparent 70%);
+            animation: float-glow 10s infinite alternate-reverse;
+        }
+        
+        @keyframes float-glow {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.1);
+            }
+            100% {
+                transform: translateY(10px) scale(0.9);
+            }
+        }
+        
+        /* Responsive styles for hero image */
+        @media screen and (max-width: 992px) {
+            .hero-image {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 80%;
+                max-width: 350px;
+                margin: 3rem auto 0;
+                animation: none;
+            }
+            
+            @keyframes float {
+                0%, 100% {
+                    transform: translateY(0) rotateY(0deg);
+                }
+                25% {
+                    transform: translateY(-10px) rotateY(5deg);
+                }
+                50% {
+                    transform: translateY(0) rotateY(0deg);
+                }
+                75% {
+                    transform: translateY(10px) rotateY(-5deg);
+                }
+            }
+            
+            .hero-image:hover {
+                transform: scale(1.05) rotateY(5deg);
+            }
+            
+            .hero-content {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                text-align: center;
+                max-width: 100%;
+                padding: 0 2rem;
+                margin-top: 5rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hero-image {
+                width: 90%;
+                max-width: 300px;
+                margin: 2rem auto 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cursor follower -->
+    <div class="cursor-follower"></div>
+    
+    <!-- Navigation -->
+    <header>
+        <div class="logo" data-aos="fade-right">
+            <span>R</span>ajat
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home" class="nav-link active" data-aos="fade-down" data-aos-delay="100">Home</a></li>
+                <li><a href="#about" class="nav-link" data-aos="fade-down" data-aos-delay="200">About Me</a></li>
+                <li><a href="#skills" class="nav-link" data-aos="fade-down" data-aos-delay="300">Skills</a></li>
+                <li><a href="#projects" class="nav-link" data-aos="fade-down" data-aos-delay="400">Projects</a></li>
+                <li><a href="#contact" class="nav-link" data-aos="fade-down" data-aos-delay="500">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <!-- Background image - using a darker coding/tech image -->
+        <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+        
+        <div class="hero-content">
+            <h1 data-aos="fade-up">
+                <span class="greeting">Hello, I'm</span>
+                <span class="name">Rajat</span>
+            </h1>
+            <div class="typewriter" data-aos="fade-up" data-aos-delay="300">
+                <span id="typewriter-text"></span><span class="cursor">|</span>
+            </div>
+            <p data-aos="fade-up" data-aos-delay="600">Turning ideas into interactive experiences</p>
+            <div class="cta-buttons" data-aos="fade-up" data-aos-delay="900">
+                <a href="#projects" class="btn primary-btn">View My Work</a>
+                <a href="#contact" class="btn secondary-btn">Contact Me</a>
+            </div>
+        </div>
+        <div class="hero-image" data-aos="zoom-in" data-aos-delay="300">
+            <!-- 3D Image with Hover Effects -->
+            <div class="glow-effect glow-1"></div>
+            <div class="glow-effect glow-2"></div>
+            <img src="vecteezy_3d-rendering-of-a-funny-face-mask-on-transparent-background_45848533.png" alt="3D Face Mask" class="hero-img">
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <div class="arrow">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>About <span>Me</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-image" data-aos="fade-right">
+                    <img src="WhatsApp Image 2025-03-09 at 12.40.24_880195ba.jpg" alt="About Rajat" class="about-img">
+                </div>
+                <div class="about-text" data-aos="fade-left">
+                    <h3>Who am I?</h3>
+                    <p>I'm a passionate developer with a keen eye for design and a love for creating interactive digital experiences. My journey in the tech world has equipped me with a diverse skill set and a problem-solving mindset.</p>
+                    <p>I believe in the power of clean code and user-centered design to build applications that not only function flawlessly but also delight users.</p>
+                    <div class="personal-info">
+                        <div class="info-item">
+                            <span class="info-title">Name:</span>
+                            <span class="info-value">Rajat</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-title">Email:</span>
+                            <span class="info-value">rajatbhardwaj1804@gmail.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-title">Location:</span>
+                            <span class="info-value">Indore, India</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-title">Availability:</span>
+                            <span class="info-value">Open to opportunities</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn primary-btn download-cv">Download CV <i class="fas fa-download"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>My <span>Skills</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="skills-content">
+                <div class="skill-category" data-aos="fade-up">
+                    <h3>Frontend Development</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                            <h4>HTML5</h4>
+                            <div class="skill-progress">
+                                <div class="progress-bar" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                            <h4>CSS3</h4>
+                            <div class="skill-progress">
+                                <div class="progress-bar" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="skill-icon"><i class="fab fa-js"></i></div>
+                            <h4>JavaScript</h4>
+                            <div class="skill-progress">
+                                <div class="progress-bar" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="skill-icon"><i class="fab fa-react"></i></div>
+                            <h4>React</h4>
+                            <div class="skill-progress">
+                                <div class="progress-bar" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Backend Development</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+                            <h4>Node.js</h4>
+                            <div class="skill-progress">
+                                <div class="progress-bar" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="skill-icon"><i class="fas fa-database"></i></div>
+                            <h4>MongoDB</h4>
+                            <div class="skill-progress">
+                                <div class="progress-bar" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="skill-icon"><i class="fas fa-server"></i></div>
+                            <h4>Express</h4>
+                            <div class="skill-progress">
+                                <div class="progress-bar" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="skill-icon"><i class="fas fa-fire"></i></div>
+                            <h4>Firebase</h4>
+                            <div class="skill-progress">
+                                <div class="progress-bar" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>My <span>Projects</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="projects-filter" data-aos="fade-up">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="mobile">Mobile</button>
+                <button class="filter-btn" data-filter="design">Design</button>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-category="web" data-aos="fade-up">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="E-Commerce Website">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-link"></i></a>
+                                <a href="#" class="project-github"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">E-Commerce Website</h3>
+                        <p class="project-description">A fully responsive e-commerce platform with user authentication and payment integration.</p>
+                        <div class="project-tech">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card" data-category="mobile" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Fitness Tracker App">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-link"></i></a>
+                                <a href="#" class="project-github"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Fitness Tracker App</h3>
+                        <p class="project-description">A mobile application to track workouts, nutrition, and fitness goals.</p>
+                        <div class="project-tech">
+                            <span>React Native</span>
+                            <span>Firebase</span>
+                            <span>Redux</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card" data-category="design" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80" alt="UI/UX Design System">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-link"></i></a>
+                                <a href="#" class="project-github"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">UI/UX Design System</h3>
+                        <p class="project-description">A comprehensive design system with reusable components and style guidelines.</p>
+                        <div class="project-tech">
+                            <span>Figma</span>
+                            <span>Adobe XD</span>
+                            <span>Sketch</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card" data-category="web" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" alt="Weather Dashboard">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-link"></i></a>
+                                <a href="#" class="project-github"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Weather Dashboard</h3>
+                        <p class="project-description">A real-time weather application with interactive maps and forecasts.</p>
+                        <div class="project-tech">
+                            <span>JavaScript</span>
+                            <span>API Integration</span>
+                            <span>CSS3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Contact <span>Me</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Location</h3>
+                            <p>Indore, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p>rajatbhardwaj1804@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Phone</h3>
+                            <p>+91 8209659071</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/rajat-suthar-bhardwaz-05a3b9335" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/918209659071" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/beingrajattastic" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form" data-aos="fade-left">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Your Name" required>
+                            <label for="name">Your Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Your Email" required>
+                            <label for="email">Your Email</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" placeholder="Subject" required>
+                            <label for="subject">Subject</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" placeholder="Your Message" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <button type="submit" class="btn primary-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span>R</span>ajat
+                </div>
+                <p>© 2025 All Rights Reserved</p>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="back-to-top">
+                <a href="#home"><i class="fas fa-arrow-up"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Ensure everything is initialized correctly
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: false,
+                mirror: false
+            });
+            
+            // Initialize WOW.js
+            new WOW().init();
+        });
+    </script>
+</body>
+</html> 
